@@ -158,13 +158,39 @@ const products = [
 
 
 const sortedByRating = () => {
-  // Student implementation
-  return;
+  let copyProducts = [...products];
+  copyProducts.sort((a, b) => {
+      let ratingA = a.ratingReviews.split(' ')[0];
+      let ratingB = b.ratingReviews.split(' ')[0];
+
+      return ratingB - ratingA;
+  });
+
+  return copyProducts;
 };
 
 const sortedByPrice = () => {
-  // Student implementation
-  return;
+    let copyProducts = [...products];
+    debugger;
+    copyProducts.sort((a, b) => {
+        let strPriceA = typeof a.price === 'string'
+            ? a.price
+            : a.price.newUan;
+
+        let strPriceB = typeof b.price === 'string'
+            ? b.price
+            : b.price.newUan;
+
+        let indexPriceA = strPriceA.match(/ грн/i).index;
+        let priceA = parseInt(strPriceA.slice(0, indexPriceA - 1).replace(/ /g, ''));
+
+        let indexPriceB = strPriceB.match(/ грн/i).index;
+        let priceB = parseInt(strPriceB.slice(0, indexPriceB - 1).replace(/ /g, ''));
+
+        return priceB - priceA;
+    });
+  
+    return copyProducts;
   };
 
 module.exports = {sortedByRating, sortedByPrice, products};
